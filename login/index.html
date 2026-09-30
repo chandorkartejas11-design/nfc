@@ -1,58 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Member Login | Café NFC</title><style>
-*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#0b0d10;color:#f7f7f5;min-height:100vh}
-.page{min-height:100vh;display:grid;place-items:center;padding:20px;background:radial-gradient(circle at 50% 15%,rgba(244,183,64,.12),transparent 35%)}
-.box{width:min(430px,100%);background:#12161c;border:1px solid rgba(255,255,255,.09);border-radius:20px;padding:28px;box-shadow:0 25px 80px rgba(0,0,0,.4)}
-.logo{width:48px;height:48px;border-radius:14px;background:#f4b740;color:#111;display:grid;place-items:center;font-size:24px;margin-bottom:18px}
-h1{font-size:27px;margin:0 0 7px}p{color:#a8afb9;font-size:14px;margin:0 0 24px}
-label{display:block;font-size:12px;font-weight:750;margin-bottom:6px}input{width:100%;padding:12px;border-radius:10px;border:1px solid #303640;background:#0d1015;color:#fff;outline:none;margin-bottom:14px}
-input:focus{border-color:#f4b740}
-button{width:100%;padding:12px;border:0;border-radius:10px;background:#f4b740;color:#111;font-weight:800;cursor:pointer}
-.back{display:inline-block;width:auto;background:transparent;color:#a8afb9;padding:0;margin-bottom:20px}
-.back:hover{color:#fff}
-.demo{margin-top:17px;padding:12px;border-radius:10px;background:#0d1015;color:#858c96;font-size:11px;line-height:1.7}
-.error{display:none;background:#3a1717;color:#ffb4b4;padding:10px;border-radius:9px;font-size:12px;margin-bottom:13px}
-.role{display:inline-block;padding:5px 9px;border-radius:999px;background:#2b2412;color:#ffd875;font-size:10px;font-weight:800;text-transform:uppercase;margin-bottom:14px}
-</style></head>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Member Login | Café NFC</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#090c0f;color:#f5f7fa;font-family:Arial,sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center}
+.card{width:min(400px,92%);background:#12171d;border:1px solid #29313a;border-radius:20px;padding:28px;box-shadow:0 20px 60px #0008}
+.back{color:#b9c3cf;text-decoration:none;font-weight:700;display:inline-block;margin-bottom:22px}.back:hover{color:#f5b83d}
+.logo{width:46px;height:46px;border-radius:13px;background:#f5b83d;display:grid;place-items:center;font-size:23px;margin-bottom:18px}
+.badge{display:inline-block;background:#3a2d0b;color:#f5c34e;border-radius:999px;padding:5px 9px;font-size:10px;font-weight:800;margin-bottom:12px}
+h1{margin:0 0 8px;font-size:26px}p{color:#9eabb8;font-size:14px;line-height:1.5}
+label{display:block;margin:20px 0 7px;font-size:13px;font-weight:700}
+input{width:100%;padding:13px;border-radius:10px;border:1px solid #303944;background:#090d11;color:#fff;outline:none}input:focus{border-color:#f5b83d}
+button{width:100%;margin-top:18px;padding:14px;border:0;border-radius:10px;background:#f5b83d;color:#111;font-weight:800;cursor:pointer}
+.demo{margin-top:16px;padding:13px;background:#0c1015;border-radius:10px;color:#82909e;font-size:12px;line-height:1.6}.demo b{color:#c5ced8}
+.error{display:none;color:#ff7b7b;font-size:12px;margin-top:10px}
+</style>
+</head>
 <body>
-<div class="page">
-  <div class="box">
-    <button class="back" onclick="goHome()">← Back to Café</button>
-    <div class="logo">☕</div>
-    <div class="role">Member Portal</div>
-    <h1>Member Login</h1>
-    <p>Access your café wallet, NFC card, balance and transaction history.</p>
-    <div class="error" id="error"></div>
-    <form onsubmit="login(event)">
-      <label>Email / Login</label>
-      <input id="email" type="text" autocomplete="username" required>
-      <label>Password</label>
-      <input id="password" type="password" autocomplete="current-password" required>
-      <button type="submit">Login</button>
-    </form>
-    <div class="demo"><b>Demo Member</b><br>tejas@cafe.local / member123</div>
-  </div>
+<div class="card">
+<a class="back" href="../">← Back to Café</a>
+<div class="logo">☕</div>
+<div class="badge">MEMBER PORTAL</div>
+<h1>Member Login</h1>
+<p>Access your café wallet, NFC card, balance and transaction history.</p>
+<form id="loginForm">
+<label>Email / Login</label>
+<input id="email" autocomplete="username" required>
+<label>Password</label>
+<input id="password" type="password" autocomplete="current-password" required>
+<div id="error" class="error">Invalid login details.</div>
+<button type="submit">Login</button>
+</form>
+<div class="demo"><b>Demo Member</b><br>tejas@cafe.local / member123</div>
 </div>
 <script>
-const users = [{"login":"tejas@cafe.local","password":"member123","role":"member","name":"Tejas"}];
-function goHome() {
-  window.location.href="../../";
-}
-function login(e) {
-  e.preventDefault();
-  const email=document.getElementById("email").value.trim().toLowerCase();
-  const password=document.getElementById("password").value;
-  const u=users.find(x=>x.login===email && x.password===password);
-  if(!u) {
-    const er=document.getElementById("error");
-    er.textContent="Invalid login. Please check your credentials.";
-    er.style.display="block";
-    return;
-  }
-  localStorage.setItem("cafeNfcSession",JSON.stringify({login:u.login,role:u.role,name:u.name}));
-  alert("Login successful as "+u.role.toUpperCase()+".\n\nThe dashboard will be connected in the next project stage.");
-}
+document.getElementById('loginForm').addEventListener('submit',function(e){
+ e.preventDefault();
+ const email=document.getElementById('email').value.trim();
+ const password=document.getElementById('password').value;
+ if(email==='tejas@cafe.local' && password==='member123'){
+   localStorage.setItem('cafeNfcSession',JSON.stringify({role:'member',email}));
+   window.location.href='../member/';
+ }else document.getElementById('error').style.display='block';
+});
 </script>
 </body>
 </html>

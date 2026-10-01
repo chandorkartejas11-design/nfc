@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Master Dashboard | Café NFC</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#090c0f;color:#f5f7fa;font-family:Arial,sans-serif}.top{height:70px;background:#0d1116;border-bottom:1px solid #242b33;display:flex;align-items:center;justify-content:space-between;padding:0 4%}.brand{font-weight:900;font-size:19px}.brand span{color:#f5b83d}.role{font-size:11px;color:#f5c34e;background:#382d0d;padding:6px 9px;border-radius:999px;margin-right:10px}.logout{background:transparent;border:1px solid #343d47;color:#d2d9e0;padding:9px 14px;border-radius:9px;font-weight:700;cursor:pointer}.layout{display:grid;grid-template-columns:225px 1fr;min-height:calc(100vh - 70px)}aside{border-right:1px solid #242b33;background:#0c1015;padding:20px 13px}.nav{display:block;width:100%;padding:12px 13px;margin:4px 0;border:0;background:transparent;color:#9ba7b3;text-align:left;border-radius:9px;font-weight:700;cursor:pointer}.nav.active,.nav:hover{background:#1b1810;color:#f5c34e}main{padding:28px 4%;max-width:1250px;width:100%}.eyebrow{color:#8c98a4;font-size:11px;font-weight:800}.title{font-size:30px;margin:6px 0 25px}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.stat,.panel{background:#12171d;border:1px solid #29313a;border-radius:15px;padding:19px}.stat small{color:#8995a2}.num{font-size:26px;font-weight:900;margin-top:8px}.gold{color:#f5c34e}.grid{display:grid;grid-template-columns:1.2fr .8fr;gap:16px;margin-top:18px}.panel h2{font-size:16px;margin:0 0 16px}.row{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid #252d35;font-size:13px}.row:last-child{border-bottom:0}.green{color:#78df93}.red{color:#ff9292}.muted{color:#8793a0;font-size:12px}.quick{display:grid;grid-template-columns:1fr 1fr;gap:9px}.quick button{padding:12px;border-radius:9px;border:1px solid #36404b;background:#0b1015;color:#fff;font-weight:700;cursor:pointer}.quick button:hover{border-color:#f5b83d}.notice{margin-top:16px;background:#0d1319;border-radius:10px;padding:12px;color:#8b98a5;font-size:12px;line-height:1.5}
+@media(max-width:850px){.layout{grid-template-columns:1fr}aside{display:flex;overflow:auto;border-right:0;border-bottom:1px solid #242b33}.nav{min-width:max-content}.stats{grid-template-columns:1fr 1fr}.grid{grid-template-columns:1fr}}@media(max-width:500px){.stats{grid-template-columns:1fr}.top{padding:0 3%}}
+</style></head>
+<body>
+<header class="top"><div class="brand">☕ Café <span>Wallet</span></div><div><span class="role">MASTER</span><button class="logout" onclick="logout()">Logout</button></div></header>
+<div class="layout"><aside>
+<button class="nav active">▦ Dashboard</button><button class="nav">👥 Members</button><button class="nav">💳 NFC Cards</button><button class="nav">💰 Wallet & Top-ups</button><button class="nav">🧾 Bills & POS</button><button class="nav">📜 Transactions</button><button class="nav">🍜 Products / Menu</button><button class="nav">👨‍💼 Staff</button><button class="nav">📊 Reports</button><button class="nav">⚙ Settings</button>
+</aside><main>
+<div class="eyebrow">MASTER CONTROL</div><div class="title">Café Overview</div>
+<section class="stats">
+<div class="stat"><small>Total Members</small><div class="num">128</div></div>
+<div class="stat"><small>Wallet Credits</small><div class="num gold">₹84,650</div></div>
+<div class="stat"><small>Today's Sales</small><div class="num">₹12,480</div></div>
+<div class="stat"><small>Pending Top-ups</small><div class="num">7</div></div>
+</section>
+<div class="grid">
+<div class="panel"><h2>Recent Transactions</h2>
+<div class="row"><span><b>TXN-20261001-000124</b><br><span class="muted">Tejas · NFC-0001 · Payment</span></span><span class="red">− ₹850</span></div>
+<div class="row"><span><b>TXN-20261001-000123</b><br><span class="muted">MEM-0042 · Payment</span></span><span class="red">− ₹1,240</span></div>
+<div class="row"><span><b>TXN-20261001-000122</b><br><span class="muted">MEM-0017 · Top-up</span></span><span class="green">+ ₹2,000</span></div>
+<div class="row"><span><b>TXN-20261001-000121</b><br><span class="muted">MEM-0088 · Payment</span></span><span class="red">− ₹560</span></div>
+</div>
+<div class="panel"><h2>Quick Actions</h2><div class="quick">
+<button>+ Add Member</button><button>💳 Link NFC Card</button><button>+ Add Credits</button><button>✓ Review Top-ups</button><button>🍜 Manage Products</button><button>👨‍💼 Manage Staff</button>
+</div><div class="notice">Master access includes wallet adjustments, top-up approvals, refunds, member management, product management, staff management and reports.</div></div>
+</div></main></div>
+<script>
+const s=JSON.parse(localStorage.getItem('cafeNfcSession')||'null');if(!s||s.role!=='master')location.href='../login/';
+function logout(){localStorage.removeItem('cafeNfcSession');location.href='../login/';}
+</script></body></html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Staff POS | Café NFC</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#090c0f;color:#f5f7fa;font-family:Arial,sans-serif}.top{height:70px;background:#0d1116;border-bottom:1px solid #242b33;display:flex;align-items:center;justify-content:space-between;padding:0 4%}.brand{font-weight:900;font-size:19px}.brand span{color:#f5b83d}.role{font-size:11px;color:#8edaa0;background:#16301f;padding:6px 9px;border-radius:999px;margin-right:10px}.logout{background:transparent;border:1px solid #343d47;color:#d2d9e0;padding:9px 14px;border-radius:9px;font-weight:700;cursor:pointer}main{width:min(1120px,92%);margin:30px auto}.eyebrow{color:#8c98a4;font-size:11px;font-weight:800}.title{font-size:30px;margin:6px 0 25px}.grid{display:grid;grid-template-columns:1.25fr .75fr;gap:17px}.panel{background:#12171d;border:1px solid #29313a;border-radius:16px;padding:20px}.panel h2{font-size:17px;margin:0 0 17px}.products{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.product{padding:16px;background:#0c1015;border:1px solid #2c353f;border-radius:11px;color:#fff;text-align:left;cursor:pointer}.product:hover{border-color:#f5b83d}.product b{display:block;margin-bottom:5px}.muted{color:#8793a0;font-size:12px}.cartrow{display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px solid #252d35;font-size:13px}.total{display:flex;justify-content:space-between;font-size:21px;font-weight:900;padding:17px 0}.nfcbox{border:1px dashed #4b3c19;background:#15130d;padding:18px;border-radius:12px;margin-bottom:15px}.nfcbox b{color:#f5c34e}.pay{width:100%;padding:14px;border:0;border-radius:10px;background:#f5b83d;color:#111;font-weight:900;cursor:pointer}.clear{width:100%;padding:11px;border:1px solid #37414b;background:transparent;color:#fff;border-radius:10px;margin-top:9px;cursor:pointer}.notice{margin-top:15px;background:#0d1319;border-radius:10px;padding:12px;color:#8b98a5;font-size:12px;line-height:1.5}.txn{margin-top:17px}.txnline{padding:11px 0;border-bottom:1px solid #252d35;display:flex;justify-content:space-between;font-size:12px}
+@media(max-width:800px){.grid{grid-template-columns:1fr}.products{grid-template-columns:1fr 1fr}}@media(max-width:480px){.products{grid-template-columns:1fr}.top{padding:0 3%}}
+</style></head>
+<body>
+<header class="top"><div class="brand">☕ Café <span>Wallet</span></div><div><span class="role">STAFF</span><button class="logout" onclick="logout()">Logout</button></div></header>
+<main><div class="eyebrow">STAFF POS</div><div class="title">Create Bill</div>
+<div class="grid"><section>
+<div class="panel"><h2>Menu</h2><div class="products">
+<button class="product" onclick="add('Chinese Noodles',180)">🍜 <b>Chinese Noodles</b><span class="muted">₹180</span></button>
+<button class="product" onclick="add('Cold Drink',60)">🥤 <b>Cold Drink</b><span class="muted">₹60</span></button>
+<button class="product" onclick="add('Coffee',100)">☕ <b>Coffee</b><span class="muted">₹100</span></button>
+<button class="product" onclick="add('Beer',200)">🍺 <b>Beer</b><span class="muted">₹200</span></button>
+</div></div>
+<div class="panel txn"><h2>Recent Staff Transactions</h2><div class="txnline"><span>TXN-20261001-000120<br><span class="muted">NFC-0012</span></span><b>₹640</b></div><div class="txnline"><span>TXN-20261001-000116<br><span class="muted">NFC-0008</span></span><b>₹420</b></div></div>
+</section>
+<section><div class="panel"><h2>Current Bill</h2><div id="cart"><div class="muted">No products added.</div></div><div class="total"><span>Total</span><span id="total">₹0</span></div>
+<div class="nfcbox">NFC Card<br><b id="card">No card tapped</b><br><span class="muted">In the hardware stage, the reader will supply the card ID.</span></div>
+<button class="pay" onclick="pay()">Tap NFC & Pay</button><button class="clear" onclick="clearCart()">Clear Bill</button>
+<div class="notice">Staff can create bills and process NFC payments. Wallet credits, refunds, top-up approvals and account management remain restricted to Master.</div>
+</div></section></div></main>
+<script>
+const s=JSON.parse(localStorage.getItem('cafeNfcSession')||'null');if(!s||s.role!=='staff')location.href='../login/';
+let cart=[];
+function add(n,p){cart.push({n,p});render()}
+function render(){let c=document.getElementById('cart');if(!cart.length){c.innerHTML='<div class="muted">No products added.</div>'}else c.innerHTML=cart.map(x=>`<div class="cartrow"><span>${x.n}</span><b>₹${x.p}</b></div>`).join('');document.getElementById('total').textContent='₹'+cart.reduce((a,x)=>a+x.p,0)}
+function clearCart(){cart=[];document.getElementById('card').textContent='No card tapped';render()}
+function pay(){if(!cart.length){alert('Add a product first.');return}document.getElementById('card').textContent='NFC-0001 (demo)';const total=cart.reduce((a,x)=>a+x.p,0);const id='TXN-'+new Date().toISOString().slice(0,10).replaceAll('-','')+'-'+String(Date.now()).slice(-6);if(confirm('Charge ₹'+total+' to NFC-0001?')){alert('Payment approved.\\n\\nTransaction ID: '+id+'\\nAmount: ₹'+total);clearCart()}}
+function logout(){localStorage.removeItem('cafeNfcSession');location.href='../login/';}
+render();
+</script></body></html>

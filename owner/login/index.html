@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Owner / Staff Login | Café NFC</title>
+<style>
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:#090c0f;color:#f5f7fa;font-family:Arial,sans-serif;display:flex;align-items:center;justify-content:center}.card{width:min(410px,92%);background:#12171d;border:1px solid #29313a;border-radius:20px;padding:28px;box-shadow:0 20px 60px #0008}.back{color:#b9c3cf;text-decoration:none;font-weight:700;display:inline-block;margin-bottom:22px}.back:hover{color:#f5b83d}.logo{width:46px;height:46px;border-radius:13px;background:#f5b83d;color:#111;display:grid;place-items:center;font-size:22px;margin-bottom:18px}.badge{display:inline-block;background:#3a2d0b;color:#f5c34e;border-radius:999px;padding:5px 9px;font-size:10px;font-weight:800;margin-bottom:12px}h1{margin:0 0 8px;font-size:26px}p{color:#9eabb8;font-size:14px;line-height:1.5}label{display:block;margin:19px 0 7px;font-size:13px;font-weight:700}input{width:100%;padding:13px;border-radius:10px;border:1px solid #303944;background:#090d11;color:#fff;outline:none}input:focus{border-color:#f5b83d}button{width:100%;margin-top:18px;padding:14px;border:0;border-radius:10px;background:#f5b83d;color:#111;font-weight:800;cursor:pointer}.demo{margin-top:16px;padding:13px;background:#0c1015;border-radius:10px;color:#82909e;font-size:12px;line-height:1.7}.demo b{color:#c5ced8}.error{display:none;color:#ff7b7b;font-size:12px;margin-top:10px}
+</style>
+</head>
+<body><div class="card">
+<a class="back" href="../../">← Back to Café</a>
+<div class="logo">☕</div><div class="badge">OWNER PORTAL</div>
+<h1>Owner / Staff Login</h1><p>Access the café management system according to your assigned role.</p>
+<form id="form">
+<label>Email / Login</label><input id="email" autocomplete="username" required>
+<label>Password</label><input id="password" type="password" autocomplete="current-password" required>
+<div id="error" class="error">Invalid owner/staff login details.</div>
+<button>Login</button></form>
+<div class="demo"><b>Demo Master</b><br>master@cafe.local / master123<br><br><b>Demo Staff</b><br>staff@cafe.local / staff123</div>
+</div>
+<script>
+document.getElementById('form').addEventListener('submit',e=>{
+ e.preventDefault();
+ const email=document.getElementById('email').value.trim(), pass=document.getElementById('password').value;
+ let role='';
+ if(email==='master@cafe.local'&&pass==='master123') role='master';
+ if(email==='staff@cafe.local'&&pass==='staff123') role='staff';
+ if(!role){document.getElementById('error').style.display='block';return}
+ localStorage.setItem('cafeNfcSession',JSON.stringify({role,email}));
+ window.location.href=role==='master'?'../master/':'../staff/';
+});
+</script></body></html>

@@ -1,32 +1,59 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Owner / Staff Login | Café NFC</title>
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Master Dashboard | Café Wallet</title>
 <style>
-*{box-sizing:border-box}body{margin:0;min-height:100vh;background:#090c0f;color:#f5f7fa;font-family:Arial,sans-serif;display:flex;align-items:center;justify-content:center}.card{width:min(410px,92%);background:#12171d;border:1px solid #29313a;border-radius:20px;padding:28px;box-shadow:0 20px 60px #0008}.back{color:#b9c3cf;text-decoration:none;font-weight:700;display:inline-block;margin-bottom:22px}.back:hover{color:#f5b83d}.logo{width:46px;height:46px;border-radius:13px;background:#f5b83d;color:#111;display:grid;place-items:center;font-size:22px;margin-bottom:18px}.badge{display:inline-block;background:#3a2d0b;color:#f5c34e;border-radius:999px;padding:5px 9px;font-size:10px;font-weight:800;margin-bottom:12px}h1{margin:0 0 8px;font-size:26px}p{color:#9eabb8;font-size:14px;line-height:1.5}label{display:block;margin:19px 0 7px;font-size:13px;font-weight:700}input{width:100%;padding:13px;border-radius:10px;border:1px solid #303944;background:#090d11;color:#fff;outline:none}input:focus{border-color:#f5b83d}button{width:100%;margin-top:18px;padding:14px;border:0;border-radius:10px;background:#f5b83d;color:#111;font-weight:800;cursor:pointer}.demo{margin-top:16px;padding:13px;background:#0c1015;border-radius:10px;color:#82909e;font-size:12px;line-height:1.7}.demo b{color:#c5ced8}.error{display:none;color:#ff7b7b;font-size:12px;margin-top:10px}
-</style>
-</head>
-<body><div class="card">
-<a class="back" href="../../">← Back to Café</a>
-<div class="logo">☕</div><div class="badge">OWNER PORTAL</div>
-<h1>Owner / Staff Login</h1><p>Access the café management system according to your assigned role.</p>
-<form id="form">
-<label>Email / Login</label><input id="email" autocomplete="username" required>
-<label>Password</label><input id="password" type="password" autocomplete="current-password" required>
-<div id="error" class="error">Invalid owner/staff login details.</div>
-<button>Login</button></form>
-<div class="demo"><b>Demo Master</b><br>master@cafe.local / master123<br><br><b>Demo Staff</b><br>staff@cafe.local / staff123</div>
-</div>
+*{box-sizing:border-box}body{margin:0;background:#090c0f;color:#f5f7fa;font:14px Arial,sans-serif}.top{height:70px;background:#0d1116;border-bottom:1px solid #242b33;display:flex;align-items:center;justify-content:space-between;padding:0 4%}.brand{font-size:19px;font-weight:900}.brand span{color:#f5b83d}.logout,.action,.nav{cursor:pointer}.logout{background:transparent;color:#ddd;border:1px solid #39434e;padding:9px 14px;border-radius:9px}.role{color:#f5c34e;background:#382d0d;border-radius:99px;padding:6px 9px;font-size:11px;margin-right:10px}.layout{display:grid;grid-template-columns:225px 1fr;min-height:calc(100vh - 70px)}aside{background:#0c1015;border-right:1px solid #242b33;padding:18px 12px}.nav{display:block;width:100%;border:1px solid transparent;background:transparent;color:#9ba7b3;text-align:left;padding:12px 13px;border-radius:9px;margin:4px 0;font-weight:700}.nav:hover,.nav.active{background:#1b1810;color:#f5c34e}.nav.active{border-color:#2d2615}main{padding:28px 4%;max-width:1250px;width:100%}.page{display:none}.page.active{display:block}.eyebrow{color:#8c98a4;font-size:11px;font-weight:800}.title{font-size:30px;margin:6px 0 25px}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.card,.panel{background:#12171d;border:1px solid #29313a;border-radius:15px;padding:19px}.card small,.muted{color:#8995a2}.num{font-size:26px;font-weight:900;margin-top:8px}.gold{color:#f5c34e}.grid{display:grid;grid-template-columns:1.2fr .8fr;gap:16px;margin-top:18px}.panel h2{font-size:16px;margin:0 0 16px}.row{display:flex;justify-content:space-between;gap:15px;padding:12px 0;border-bottom:1px solid #252d35}.green{color:#78df93}.red{color:#ff9292}.quick{display:grid;grid-template-columns:1fr 1fr;gap:9px}.action{background:#0b1015;color:#fff;border:1px solid #36404b;padding:11px 13px;border-radius:9px;font-weight:700}.action:hover{border-color:#f5b83d}.toolbar{display:flex;gap:10px;margin-bottom:15px;flex-wrap:wrap}.search{flex:1;min-width:220px;background:#0b1015;color:#fff;border:1px solid #303944;padding:11px;border-radius:9px}table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:12px 8px;border-bottom:1px solid #252d35}th{font-size:11px;color:#7f8b97;text-transform:uppercase}.badge{padding:5px 8px;border-radius:99px;background:#172d1d;color:#79dc91;font-size:10px;font-weight:800}.notice{margin-top:16px;background:#0d1319;border-radius:10px;padding:12px;color:#8b98a5;font-size:12px;line-height:1.5}
+@media(max-width:900px){.layout{grid-template-columns:1fr}aside{display:flex;overflow:auto;border-right:0;border-bottom:1px solid #242b33;padding:10px}.nav{min-width:max-content}.stats{grid-template-columns:1fr 1fr}.grid{grid-template-columns:1fr}}@media(max-width:520px){.stats{grid-template-columns:1fr}.top{padding:0 3%}.role{display:none}}
+</style></head>
+<body>
+<header class="top"><div class="brand">☕ Café <span>Wallet</span></div><div><span class="role">MASTER</span><button class="logout" onclick="logout()">Logout</button></div></header>
+<div class="layout"><aside>
+<button class="nav active" data-page="dashboard">▦ Dashboard</button>
+<button class="nav" data-page="members">👥 Members</button>
+<button class="nav" data-page="cards">💳 NFC Cards</button>
+<button class="nav" data-page="wallet">💰 Wallet & Top-ups</button>
+<button class="nav" data-page="pos">🧾 Bills & POS</button>
+<button class="nav" data-page="transactions">📜 Transactions</button>
+<button class="nav" data-page="products">🍜 Products / Menu</button>
+<button class="nav" data-page="staff">👨‍💼 Staff</button>
+<button class="nav" data-page="reports">📊 Reports</button>
+<button class="nav" data-page="settings">⚙ Settings</button>
+</aside>
+<main>
+
+<section id="dashboard" class="page active"><div class="eyebrow">MASTER CONTROL</div><div class="title">Café Overview</div>
+<div class="stats"><div class="card"><small>Total Members</small><div class="num">128</div></div><div class="card"><small>Wallet Credits</small><div class="num gold">₹84,650</div></div><div class="card"><small>Today's Sales</small><div class="num">₹12,480</div></div><div class="card"><small>Pending Top-ups</small><div class="num">7</div></div></div>
+<div class="grid"><div class="panel"><h2>Recent Transactions</h2>
+<div class="row"><span><b>TXN-20261001-000124</b><br><span class="muted">Tejas · NFC-0001 · Payment</span></span><span class="red">− ₹850</span></div>
+<div class="row"><span><b>TXN-20261001-000123</b><br><span class="muted">MEM-0042 · Payment</span></span><span class="red">− ₹1,240</span></div>
+<div class="row"><span><b>TXN-20261001-000122</b><br><span class="muted">MEM-0017 · Top-up</span></span><span class="green">+ ₹2,000</span></div></div>
+<div class="panel"><h2>Quick Actions</h2><div class="quick"><button class="action" onclick="showPage('members')">+ Add Member</button><button class="action" onclick="showPage('cards')">💳 Link NFC Card</button><button class="action" onclick="showPage('wallet')">+ Add Credits</button><button class="action" onclick="showPage('wallet')">✓ Review Top-ups</button><button class="action" onclick="showPage('products')">🍜 Manage Products</button><button class="action" onclick="showPage('staff')">👨‍💼 Manage Staff</button></div><div class="notice">Master has full management access.</div></div></div></section>
+
+<section id="members" class="page"><div class="eyebrow">MEMBERS</div><div class="title">Member Management</div><div class="toolbar"><input class="search" placeholder="Search member"><button class="action" onclick="alert('Add Member will connect to the database next.')">+ Add Member</button></div><div class="panel"><table><tr><th>Member</th><th>ID</th><th>NFC</th><th>Balance</th><th>Status</th><th></th></tr><tr><td>Tejas<br><span class="muted">tejas@cafe.local</span></td><td>MEM-0001</td><td>NFC-0001</td><td>₹5,000</td><td><span class="badge">ACTIVE</span></td><td><button class="action">View</button></td></tr><tr><td>Rahul Patil</td><td>MEM-0042</td><td>NFC-0042</td><td>₹2,850</td><td><span class="badge">ACTIVE</span></td><td><button class="action">View</button></td></tr></table></div></section>
+
+<section id="cards" class="page"><div class="eyebrow">NFC MANAGEMENT</div><div class="title">NFC Cards</div><div class="panel"><h2>Linked Cards</h2><table><tr><th>Card ID</th><th>Member</th><th>Status</th><th>Action</th></tr><tr><td>NFC-0001</td><td>Tejas / MEM-0001</td><td><span class="badge">ACTIVE</span></td><td><button class="action">Manage</button></td></tr><tr><td>NFC-0042</td><td>Rahul / MEM-0042</td><td><span class="badge">ACTIVE</span></td><td><button class="action">Manage</button></td></tr></table><br><button class="action" onclick="alert('Physical NFC reader linking will be connected in the hardware stage.')">+ Link New NFC Card</button><div class="notice">Only the unique card identifier belongs to the NFC card. Wallet balance stays on the server.</div></div></section>
+
+<section id="wallet" class="page"><div class="eyebrow">WALLET CONTROL</div><div class="title">Wallet & Top-ups</div><div class="stats"><div class="card"><small>Total Credits</small><div class="num gold">₹84,650</div></div><div class="card"><small>Pending Requests</small><div class="num">7</div></div></div><div class="panel" style="margin-top:18px"><h2>Pending Top-ups</h2><div class="row"><span><b>TOPUP-20261001-0007</b><br><span class="muted">Tejas · ₹2,000</span></span><button class="action" onclick="approve(this)">Approve</button></div><div class="row"><span><b>TOPUP-20261001-0006</b><br><span class="muted">MEM-0042 · ₹1,500</span></span><button class="action" onclick="approve(this)">Approve</button></div><div class="notice">Approving a request will create a permanent wallet ledger transaction in the live backend.</div></div></section>
+
+<section id="pos" class="page"><div class="eyebrow">BILLING</div><div class="title">Bills & POS</div><div class="panel"><h2>POS Control</h2><p class="muted">Review bills and open the staff POS.</p><button class="action" onclick="alert('POS will be connected to products and NFC payment next.')">Open POS</button></div></section>
+
+<section id="transactions" class="page"><div class="eyebrow">LEDGER</div><div class="title">All Transactions</div><div class="panel"><div class="toolbar"><input class="search" placeholder="Search transaction ID"></div><table><tr><th>Transaction ID</th><th>Member</th><th>Type</th><th>Amount</th></tr><tr><td>TXN-20261001-000124</td><td>Tejas / NFC-0001</td><td>PAYMENT</td><td class="red">− ₹850</td></tr><tr><td>TXN-20260930-000119</td><td>Tejas / NFC-0001</td><td>TOPUP</td><td class="green">+ ₹2,000</td></tr><tr><td>TXN-20260928-000101</td><td>Tejas / NFC-0001</td><td>PAYMENT</td><td class="red">− ₹420</td></tr></table></div></section>
+
+<section id="products" class="page"><div class="eyebrow">MENU</div><div class="title">Products / Menu</div><div class="panel"><button class="action" onclick="alert('Product creation will connect to the database next.')">+ Add Product</button><br><br><table><tr><th>Product</th><th>Category</th><th>Price</th><th>Status</th></tr><tr><td>Chinese Noodles</td><td>Chinese</td><td>₹180</td><td><span class="badge">ACTIVE</span></td></tr><tr><td>Cold Drink</td><td>Beverage</td><td>₹60</td><td><span class="badge">ACTIVE</span></td></tr><tr><td>Coffee</td><td>Beverage</td><td>₹100</td><td><span class="badge">ACTIVE</span></td></tr><tr><td>Beer</td><td>Beverage</td><td>₹200</td><td><span class="badge">ACTIVE</span></td></tr></table></div></section>
+
+<section id="staff" class="page"><div class="eyebrow">TEAM</div><div class="title">Staff Management</div><div class="panel"><button class="action" onclick="alert('Staff creation will connect to secure authentication next.')">+ Add Staff</button><br><br><table><tr><th>Name</th><th>Login</th><th>Role</th><th>Status</th></tr><tr><td>Demo Staff</td><td>staff@cafe.local</td><td>STAFF</td><td><span class="badge">ACTIVE</span></td></tr></table><div class="notice">Staff cannot approve top-ups, directly change wallet balances, delete transactions, manage staff or change master settings.</div></div></section>
+
+<section id="reports" class="page"><div class="eyebrow">REPORTS</div><div class="title">Reports</div><div class="stats"><div class="card"><small>Today's Sales</small><div class="num">₹12,480</div></div><div class="card"><small>This Month</small><div class="num">₹2,84,650</div></div><div class="card"><small>Payments</small><div class="num">342</div></div><div class="card"><small>Top-ups</small><div class="num">86</div></div></div><div class="panel" style="margin-top:18px"><button class="action" onclick="alert('Export will connect to backend data next.')">Export Report</button></div></section>
+
+<section id="settings" class="page"><div class="eyebrow">SYSTEM</div><div class="title">Settings</div><div class="panel"><h2>Café Settings</h2><p class="muted">Café Name: Café Wallet</p><p class="muted">Currency: INR ₹</p><p class="muted">Wallet rule: 1 café credit = ₹1 spending value</p><div class="notice">Production settings will be stored securely in the backend.</div></div></section>
+
+</main></div>
 <script>
-document.getElementById('form').addEventListener('submit',e=>{
- e.preventDefault();
- const email=document.getElementById('email').value.trim(), pass=document.getElementById('password').value;
- let role='';
- if(email==='master@cafe.local'&&pass==='master123') role='master';
- if(email==='staff@cafe.local'&&pass==='staff123') role='staff';
- if(!role){document.getElementById('error').style.display='block';return}
- localStorage.setItem('cafeNfcSession',JSON.stringify({role,email}));
- window.location.href=role==='master'?'../master/':'../staff/';
-});
+const s=JSON.parse(localStorage.getItem('cafeNfcSession')||'null');if(!s||s.role!=='master')location.href='../login/';
+const navs=document.querySelectorAll('.nav');
+function showPage(id){document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');navs.forEach(x=>x.classList.toggle('active',x.dataset.page===id));location.hash=id;window.scrollTo(0,0)}
+navs.forEach(x=>x.addEventListener('click',()=>showPage(x.dataset.page)));
+if(location.hash&&document.getElementById(location.hash.slice(1)))showPage(location.hash.slice(1));
+function logout(){localStorage.removeItem('cafeNfcSession');location.href='../login/'}
+function approve(b){b.textContent='Approved ✓';b.disabled=true;alert('Demo approval recorded. The live version will create a ledger transaction.')}
 </script></body></html>
